@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Shortcut script untuk shadcn-vue CLI
+# Usage: 
+#   ui                    -> pnpm dlx shadcn-vue@latest
+#   ui add button         -> pnpm dlx shadcn-vue@latest add button
+#   ui add form select    -> pnpm dlx shadcn-vue@latest add form select
+
+if [ $# -eq 0 ]; then
+    # Kalau ga ada argument, jalanin CLI biasa
+    npx shadcn-vue@latest
+else
+    # Kalau ada argument, pass semua ke shadcn-vue
+    npx shadcn-vue@latest "$@"
+fi

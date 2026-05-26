@@ -1,0 +1,66 @@
+services:
+  # Main Vitesse-ky Application - Development Mode with Hot Reload
+  vitesse-ky:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development # Use development stage instead of runtime
+    container_name: vitesse-ky-app-dev
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+      - '24678:24678' # Vite HMR port
+    environment:
+      - NODE_ENV=development # Development mode
+      - NUXT_PORT=3000
+      - NUXT_HOST=0.0.0.0
+      - CHOKIDAR_USEPOLLING=true # Enable file watching in Docker
+    command: [dumb-init, --, pnpm, dev] # Override to use dev command
+    env_file:
+      - .env.docker
+    networks:
+      - solutif-network
+    volumes:
+      # Mount source code for hot reload
+      - .:/app
+      - /app/node_modules # Prevent node_modules override
+      - ./logs:/app/logs
+    healthcheck:
+      test: [CMD, wget, --no-verbose, --tries=1, --spider, 'http://localhost:3000/api/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on: []
+
+  # Nginx reverse proxy for development
+  nginx:
+    image: nginx:alpine
+    container_name: vitesse-ky-nginx-dev
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx-logs:/var/log/nginx
+    networks:
+      - solutif-network
+    depends_on:
+      - vitesse-ky
+    profiles:
+      - nginx
+
+networks:
+  solutif-network:
+    external: true
+    name: be-msv_solutif-network # Connect to your backend network
+
+volumes:
+  nginx-logs:
+    driver: local
+  nuxt-build:
+    driver: local
+  nuxt-dist:
+    driver: local

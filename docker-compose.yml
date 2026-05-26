@@ -1,0 +1,108 @@
+services:
+  # Main Vitesse-ky Application
+  vitesse-ky:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: vitesse-ky-app
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - NUXT_PORT=3000
+      - NUXT_HOST=0.0.0.0
+    env_file:
+      - .env
+    networks:
+      - vitesse-network
+    volumes:
+      - ./logs:/app/logs
+    healthcheck:
+      test: [CMD, wget, --no-verbose, --tries=1, --spider, 'http://localhost:3000/api/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - redis
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vitesse-ky.rule=Host(`localhost`)
+      - traefik.http.services.vitesse-ky.loadbalancer.server.port=3000
+
+  # Redis for session storage and caching
+  redis:
+    image: redis:7-alpine
+    container_name: vitesse-ky-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - vitesse-network
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: vitesse-ky-nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx-logs:/var/log/nginx
+    networks:
+      - vitesse-network
+    depends_on:
+      - vitesse-ky
+    profiles:
+      - nginx
+
+  # Development database (PostgreSQL) - optional
+  postgres:
+    image: postgres:15-alpine
+    container_name: vitesse-ky-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vitesse_ky
+      POSTGRES_USER: vitesse
+      POSTGRES_PASSWORD: vitesse_password
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - vitesse-network
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U vitesse -d vitesse_ky]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    profiles:
+      - database
+
+networks:
+  vitesse-network:
+    driver: bridge
+    name: vitesse-ky-network
+
+volumes:
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local
+  nginx-logs:
+    driver: local
