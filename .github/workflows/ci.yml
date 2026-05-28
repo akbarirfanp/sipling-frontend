@@ -1,0 +1,71 @@
+name: CI - Lint & Type Check
+
+on:
+  pull_request:
+    branches: [dev-v2]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}-lint-typecheck
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack & activate pnpm from packageManager
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+          pnpm -v
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Prefetch deps
+        run: pnpm fetch
+
+      - name: Install deps (strict, offline)
+        run: pnpm install --frozen-lockfile --offline
+
+      - name: Nuxt prepare (generate .nuxt for ESLint)
+        run: pnpm exec nuxi prepare
+
+      - name: Lint
+        run: pnpm lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack & activate pnpm from packageManager
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+          pnpm -v
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Prefetch deps
+        run: pnpm fetch
+
+      - name: Install deps (strict, offline)
+        run: pnpm install --frozen-lockfile --offline
+
+      - name: Type check
+        run: pnpm typecheck

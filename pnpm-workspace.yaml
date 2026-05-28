@@ -1,0 +1,72 @@
+packages: []
+
+catalog:
+  lucide-vue-next: ^0.544.0
+
+catalogs:
+  build:
+    '@nuxt/devtools': ^2.6.2
+    '@nuxt/eslint': ^1.5.2
+    '@nuxt/image': ^1.11.0
+    '@nuxt/kit': ^4.1.2
+    '@nuxtjs/color-mode': ^3.5.2
+    '@pinia/nuxt': ^0.11.1
+    '@unocss/eslint-config': ^66.5.1
+    '@unocss/nuxt': ^66.5.1
+    '@unocss/reset': ^66.5.1
+    '@vueuse/nuxt': ^13.5.0
+    nuxt: ^4.1.2
+    sharp: ^0.34.3
+    unocss: ^66.5.1
+    unocss-preset-animations: ^1.2.1
+    unocss-preset-shadcn: ^0.5.0
+    unplugin: ^2.3.5
+    vite: ^7.0.4
+  dev:
+    '@antfu/eslint-config': ^4.17.0
+    eslint: ^9.31.0
+    eslint-plugin-format: ^1.0.1
+    husky: ^9.1.7
+    lint-staged: ^16.2.3
+    typescript: ^5.8.3
+    vue-tsc: ^3.0.1
+  frontend:
+    '@peterbud/nuxt-query': ^1.1.0
+    '@tanstack/vue-query': ^5.85.6
+    '@tanstack/vue-table': ^8.21.3
+    '@vee-validate/zod': ^4.15.1
+    '@vueuse/core': ^13.5.0
+    base-vue-phone-input: ^0.1.13
+    class-variance-authority: ^0.7.1
+    clsx: ^2.1.1
+    nuxt-auth-utils: ^0.5.23
+    nuxt-authorization: ^0.3.5
+    pinia: ^3.0.3
+    reka-ui: 2.4.1
+    shadcn-nuxt: 2.2.0
+    tailwind-merge: ^3.3.1
+    vee-validate: ^4.15.1
+    vue: ^3.5.17
+    vue-sonner: ^2.0.8
+    zod: ^4.1.1
+  icons:
+    '@iconify-json/ph': ^1.2.2
+    '@nuxt/icon': ^2.0.0
+  test:
+    '@nuxt/test-utils': ^3.19.2
+    '@pinia/testing': ^1.0.2
+    '@playwright/test': ^1.55.0
+    '@testing-library/jest-dom': ^6.8.0
+    '@testing-library/user-event': ^14.6.1
+    '@testing-library/vue': ^8.1.0
+    '@vitest/ui': ^3.2.4
+    '@vue/test-utils': ^2.4.6
+    happy-dom: ^18.0.1
+    jsdom: ^26.1.0
+    msw: ^2.10.5
+    vitest: ^3.2.4
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - sharp

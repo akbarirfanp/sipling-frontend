@@ -1,0 +1,315 @@
+<script setup lang="ts">
+import type { ScxSelectFetchResult } from '#shared/types/select'
+import type { GenericObject } from 'vee-validate'
+import type { z, ZodSchema } from 'zod'
+// import type { Division } from '~/features/divisions/domain'
+// import type { Queue } from '~/features/queues/domain'
+import type { Role } from '~/features/roles/domain'
+import type { User } from '~/features/users/domain'
+import { toTypedSchema } from '@vee-validate/zod'
+import PhoneInput from 'base-vue-phone-input'
+import { useForm } from 'vee-validate'
+import { nextTick, onMounted } from 'vue'
+import FlagComponent from '~/components/forms/FlagComponent.vue'
+import { useRolesQuery } from '~/features/roles/useRolesQuery'
+import { updateUserSchema } from '~/features/users/forms/schemas'
+import { useUsers } from '~/features/users/useUsers'
+
+const props = defineProps<{
+  user: User
+}>()
+const emit = defineEmits(['editSuccess'])
+const { updateUser } = useUsers()
+const confirmDialog = useConfirmDialog()
+const dialogRef = ref()
+const open = reactive<Record<string, boolean>>({ phoneNumber: false })
+
+const rolesQuery = useRolesQuery()
+const { setFieldValue } = useForm()
+const phoneRef = ref()
+
+const {
+  roles,
+  totalPages: rolTotalPages,
+  page: rolPage,
+  pageSize: rolPageSize,
+  search: rolSearch,
+  refreshRoles: _refreshRoles,
+} = rolesQuery
+
+const rolesError = computed(() => {
+  return (rolesQuery).rolesError.value ?? false
+})
+
+const isLoadingRoles = computed(() => {
+  return (rolesQuery).isLoadingRoles.value ?? false
+})
+
+async function fetchRoles(query: string, cursor?: string): Promise<ScxSelectFetchResult> {
+  try {
+    const pageNumber = cursor ? Number.parseInt(cursor, 10) : 1
+
+    rolPage.value = pageNumber
+    rolPageSize.value = 20
+    rolSearch.value = query?.trim() || ''
+
+    if (Number.isNaN(pageNumber) || pageNumber < 1) {
+      throw new Error('Invalid page number')
+    }
+
+    await _refreshRoles()
+
+    const items = roles.value
+      .filter(rol => rol.id && rol.name)
+      .map((rol: Role) => ({
+        value: String(rol.id),
+        label: rol.name!,
+      }))
+
+    return {
+      items,
+      nextCursor: pageNumber < rolTotalPages.value ? String(pageNumber + 1) : undefined,
+      hasMore: pageNumber < rolTotalPages.value,
+    }
+  }
+  catch (error) {
+    console.error('Error fetching roles:', error)
+    return { items: [], hasMore: false }
+  }
+}
+
+// function parsePhoneToE164Format(phone?: string | null): string {
+//   if (!phone)
+//     return ''
+//   const cleaned = phone.replace(/[()]/g, '').replace(/^\+?(\d+)/, '+$1')
+//   return cleaned
+// }
+
+const formSchema = updateUserSchema
+type FormData = z.infer<typeof formSchema>
+const validationSchema = computed(() => toTypedSchema(formSchema) as unknown as ZodSchema<Record<string, unknown>>)
+
+const initialValues = computed(() => {
+  // const e164Phone = parsePhoneToE164Format(props.user.phoneNumber)
+
+  return {
+    username: props.user.username ?? '',
+    name: props.user.name ?? '',
+    emailAddress: props.user.email ?? '',
+    address: props.user.address ?? '',
+    // phoneNumber: e164Phone,
+    roleId: props.user.roleId ?? '',
+    status: props.user.status ? '1' : '0',
+    countryCode: '',
+  }
+})
+
+async function handleSave(values: GenericObject, _actions: { resetForm: () => void, setFieldError: (field: string, message: string) => void }) {
+  const formData = values as FormData
+  const confirmed = await confirmDialog.confirm({
+    title: 'Submit Edit User?',
+    message: 'Before submitting, please ensure the user you entered is correct and appropriate',
+    confirmText: 'Submit',
+    cancelText: 'Cancel',
+    type: 'confirmation',
+  })
+  if (!confirmed) {
+    return false
+  }
+  try {
+    await updateUser(props.user.id, {
+      name: formData.name,
+      username: formData.username,
+      // phoneNumber: formData.phoneNumber,
+      email: formData.emailAddress,
+      roleId: formData.roleId,
+      status: formData.status === '1',
+    })
+    confirmDialog.success(
+      'Success',
+      'Update user has been successfully saved in the system',
+    )
+    emit('editSuccess')
+    return true
+  }
+  catch (err) {
+    let errorMessage = 'An error occurred while creating the user.'
+
+    if (
+      typeof err === 'object'
+      && err !== null
+      && 'data' in err
+      && isApiErrorResponse((err as GenericError).data?.data)
+    ) {
+      const apiError = (err as GenericError).data!.data!
+
+      if (isValidationError(apiError)) {
+        errorMessage = Object.values(apiError.errors)
+          .flat()
+          .join('\n')
+      }
+      else {
+        errorMessage = apiError.message || 'An unknown error occurred.'
+      }
+    }
+    else if (
+      typeof err === 'object'
+      && err !== null
+      && 'data' in err
+      && typeof (err as GenericError).data?.message === 'string'
+    ) {
+      errorMessage = (err as GenericError).data!.message!
+    }
+
+    await confirmDialog.error('Error', errorMessage)
+    return false
+  }
+}
+
+function handleEdit() {
+  dialogRef.value?.openDialog()
+}
+
+defineExpose({
+  handleEdit,
+})
+
+onMounted(async () => {
+  if (props.user.roleId && !props.user.roleName) {
+    try {
+      await fetchRoles('', '1')
+    }
+    catch (error) {
+      console.warn('Failed to pre-load roles:', error)
+    }
+  }
+})
+</script>
+
+<template>
+  <div>
+    <FormDialog
+      ref="dialogRef"
+      title="Edit User"
+      description="Edit user by filling register information below."
+      primary-button-label="Save"
+      secondary-button-label="Cancel"
+      button-direction="vertical"
+      width="w-full max-w-md"
+      :validation-schema="validationSchema"
+      :initial-values="initialValues"
+      loading-text="Save in progress..."
+      @form-submit="handleSave"
+      @form-success="handleEdit"
+    >
+      <template #fields>
+        <div class="gap-4 grid grid-cols-2">
+          <CnFormField v-slot="{ componentField }" name="username">
+            <CnFormItem class="min-h-[80px] w-full">
+              <CnFormLabel>Username</CnFormLabel>
+              <CnFormControl>
+                <CnInput
+                  v-bind="componentField"
+                  placeholder="Enter username"
+                  class="h-11"
+                />
+              </CnFormControl>
+              <CnFormMessage />
+            </CnFormItem>
+          </CnFormField>
+
+          <CnFormField v-slot="{ componentField }" name="name">
+            <CnFormItem>
+              <CnFormLabel>Full Name</CnFormLabel>
+              <CnFormControl>
+                <CnInput
+                  v-bind="componentField"
+                  placeholder="Enter full name"
+                  class="h-11"
+                />
+              </CnFormControl>
+              <CnFormMessage />
+            </CnFormItem>
+          </CnFormField>
+
+          <CnFormField v-slot="{ componentField }" name="emailAddress">
+            <CnFormItem>
+              <CnFormLabel>Email Address</CnFormLabel>
+              <CnFormControl>
+                <CnInput
+                  v-bind="componentField"
+                  placeholder="Enter email address"
+                  class="h-11"
+                />
+              </CnFormControl>
+              <CnFormMessage />
+            </CnFormItem>
+          </CnFormField>
+
+          <!-- Phone number field -->
+
+          <!-- Status -->
+          <CnFormField v-slot="{ componentField }" name="status">
+            <CnFormItem class="flex flex-col">
+              <CnFormLabel>Status</CnFormLabel>
+              <CnFormControl>
+                <CnSelect v-bind="componentField">
+                  <CnSelectTrigger class="h-11 w-full" size="default">
+                    <CnSelectValue placeholder="- Select Status -" />
+                  </CnSelectTrigger>
+                  <CnSelectContent>
+                    <CnSelectItem value="1">
+                      Active
+                    </CnSelectItem>
+                    <CnSelectItem value="0">
+                      Non Active
+                    </CnSelectItem>
+                  </CnSelectContent>
+                </CnSelect>
+              </CnFormControl>
+              <CnFormMessage class="text-sm text-red-500 min-h-[20px]" />
+            </CnFormItem>
+          </CnFormField>
+        </div>
+
+        <div class="gap-4 grid grid-cols-1">
+        <!-- Searchable Select Role -->
+          <CnFormField v-slot="{ componentField }" name="roleId">
+            <CnFormItem class="flex flex-col w-full">
+              <CnFormLabel>Role</CnFormLabel>
+              <CnFormControl>
+                <ScxSelect
+                  v-bind="componentField"
+                  placeholder="- Select Role -"
+                  :async="true"
+                  :fetcher="fetchRoles"
+                  :loading="isLoadingRoles"
+                  searchable
+                  clearable
+                  :error="rolesError"
+                  :default-items="user.roleId
+                    ? [{
+                      value: user.roleId ?? '',
+                      label: user.roleName ?? '',
+                    }] : []"
+                />
+              </CnFormControl>
+              <CnFormMessage class="text-sm text-red-500 min-h-[20px]" />
+            </CnFormItem>
+          </CnFormField>
+        </div>
+        <div class="gap-4 grid grid-cols-1">
+          <CnFormField v-slot="{ componentField }" name="address">
+            <CnFormItem class="flex flex-col">
+              <CnFormLabel>Alamat <span class="text-red-500">*</span></CnFormLabel>
+              <CnFormControl>
+                <CnInput v-bind="componentField" placeholder="Ketik Alamat" class="h-11 w-full" />
+              </CnFormControl>
+              <CnFormMessage class="text-sm text-red-500 min-h-[20px]" />
+            </CnFormItem>
+          </CnFormField>
+        </div>
+      </template>
+    </FormDialog>
+  </div>
+</template>
