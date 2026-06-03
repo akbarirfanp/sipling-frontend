@@ -54,7 +54,6 @@ function toDomainPayment(t: z.infer<typeof zPaymentTransport>): Payment {
 
 export default function makePaymentsRepo($api: typeof $fetch): PaymentsRepository {
     const base = ((useRuntimeConfig().public?.accountServiceBase as string) || '/v1').replace(/\/+$/, '')
-    const zList = zPageEnvelope(zPaymentTransport)
     const zDetail = zDetailEnvelope(zPaymentTransport)
 
     return {

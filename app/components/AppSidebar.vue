@@ -25,7 +25,7 @@ const data = {
       icon: 'ph:address-book-duotone',
     },
     {
-      title: 'User Management',
+      title: 'Manajemen Pengguna',
       url: '/users',
       icon: 'ph:users-three-duotone',
       adminOnly: true,

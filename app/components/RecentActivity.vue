@@ -6,7 +6,6 @@ const {
   total,
   totalPages,
   page,
-  pageSize,
   isLoadingRecentActivity,
 } = useRecentActivityQuery()
 

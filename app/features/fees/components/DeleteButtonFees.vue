@@ -18,7 +18,7 @@ async function handleDeleteFee() {
     title: 'Hapus Iuran?',
     message: 'Anda yakin ingin menghapus iuran?',
     confirmText: 'Hapus',
-    cancelText: 'Cancel',
+    cancelText: 'Batal',
   })
 
   if (!confirmed)

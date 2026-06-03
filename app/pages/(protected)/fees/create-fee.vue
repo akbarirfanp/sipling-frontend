@@ -75,7 +75,6 @@ const onSubmit = handleSubmit(async (values) => {
     }
 
     const result = await createFee(cmd)
-    console.log('result:', result) // ← tambah ini
 
     await confirmDialog.success('Success', 'New fee has been successfully saved in the Account system.')
 
@@ -130,7 +129,7 @@ const handleCancel = () => dialog.close()
 <template>
   <div class="p-6">
     <h2 class="text-xl font-semibold mb-6">
-      Create New Fee
+      Pembuatan Iuran Baru
     </h2>
 
     <form @submit="onSubmit">
@@ -145,7 +144,7 @@ const handleCancel = () => dialog.close()
             <CnFormItem class="flex flex-col">
               <CnFormLabel>Nama Iuran<span class="text-red-500">*</span></CnFormLabel>
               <CnFormControl>
-                <CnInput v-bind="componentField" placeholder="Enter fee name" class="h-11 w-full" />
+                <CnInput v-bind="componentField" placeholder="Masukkan nama iuran" class="h-11 w-full" />
               </CnFormControl>
               <CnFormMessage class="text-sm text-red-500 min-h-[20px]" />
             </CnFormItem>
@@ -194,9 +193,9 @@ const handleCancel = () => dialog.close()
         <div class="gap-6 mt-6 grid grid-cols-1 md:grid-cols-1">
           <CnFormField v-slot="{ componentField }" name="description">
             <CnFormItem class="flex flex-col">
-              <CnFormLabel>Description</CnFormLabel>
+              <CnFormLabel>Deskripsi</CnFormLabel>
               <CnFormControl>
-                <CnInput v-bind="componentField" placeholder="Enter description" class="h-11 w-full" />
+                <CnInput v-bind="componentField" placeholder="Masukkan deskripsi" class="h-11 w-full" />
               </CnFormControl>
               <CnFormMessage class="text-sm text-red-500 min-h-[20px]" />
             </CnFormItem>
@@ -206,10 +205,10 @@ const handleCancel = () => dialog.close()
 
       <div class="flex gap-3">
         <CnButton type="button" variant="outline" :disabled="isSubmitting" class="text-primary border-primary flex-1 h-11 hover:text-primary hover:border-primary hover:bg-primary/10" @click="handleCancel">
-          Cancel
+          Batal
         </CnButton>
         <CnButton type="submit" :disabled="isSubmitting" class="bg-primary flex-1 h-11 hover:bg-primary/80">
-          {{ isSubmitting ? 'Saving...' : 'Save' }}
+          {{ isSubmitting ? 'Menyimpan...' : 'Simpan' }}
         </CnButton>
       </div>
     </form>

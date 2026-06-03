@@ -177,12 +177,12 @@ useHead({
       <div class="p-6 overflow-x-auto overflow-y-visible">
         <CnDataTable
           :key="`users-table-${listQ.data.value?.total}`"
-          title="Manajemen Warga"
+          title="Manajemen Pengguna"
           :columns="columns"
           :data="listQ.data.value?.items ?? []"
           server-side
           :on-server-side-change="handleServerSideChange"
-          search-placeholder="Cari warga..."
+          search-placeholder="Cari pengguna..."
           :page-size-options="[10, 20, 50, 100]"
           :loading="isLoadingUsers"
           :show-column-visibility="false"
@@ -196,7 +196,7 @@ useHead({
               @click="navigateToCreate"
             >
               <Icon name="ph:plus" class="h-4 w-4" />
-              Create User
+              Buat Pengguna
             </CnButton>
           </template>
         </CnDataTable>

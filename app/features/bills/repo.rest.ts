@@ -41,7 +41,6 @@ function toGeneratePayload(c: GenerateBillCmd) {
 
 export default function makeBillsRestRepo($api: typeof $fetch): BillsRepository {
     const base = ((useRuntimeConfig().public?.accountServiceBase as string) || '/v1').replace(/\/+$/, '')
-    const zList = zPageEnvelope(zBillTransport)
     const zDetail = zDetailEnvelope(zBillTransport)
 
     return {

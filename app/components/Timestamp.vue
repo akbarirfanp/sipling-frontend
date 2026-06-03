@@ -3,17 +3,13 @@ import { computed } from 'vue'
 
 interface Props {
   createdAt?: string | null
-  createdBy?: string | null
   updatedAt?: string | null
-  updatedBy?: string | null
   loading?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   createdAt: '',
-  createdBy: 'Unknown User',
   updatedAt: '',
-  updatedBy: 'Unknown User',
   loading: false,
 })
 
@@ -45,8 +41,6 @@ function getInitials(name?: string | null) {
 
 const formattedCreatedAt = computed(() => formatDate(props.createdAt))
 const formattedUpdatedAt = computed(() => formatDate(props.updatedAt))
-const createdByInitials = computed(() => getInitials(props.createdBy))
-const updatedByInitials = computed(() => getInitials(props.updatedBy))
 </script>
 
 <template>
@@ -81,16 +75,8 @@ const updatedByInitials = computed(() => getInitials(props.updatedBy))
     <div v-else>
       <div class="px-6 py-4 flex items-center justify-between">
         <p class="text-sm">
-          Create Date
+          Tanggal Pembuatan
         </p>
-        <CnBadge class="text-xs text-primary px-1 py-1 rounded-full bg-red-50 hover:bg-primary/60">
-          <CnAvatar class="mr-1 h-5 w-5">
-            <CnAvatarFallback class="text-[10px] text-primary bg-red-200">
-              {{ createdByInitials }}
-            </CnAvatarFallback>
-          </CnAvatar>
-          {{ createdBy }}
-        </CnBadge>
       </div>
       <div class="text-neutral-400 px-6 py-4 bg-muted flex flex-row gap-2 items-center">
         <Icon name="ph:calendar-blank" size="20" />
@@ -100,16 +86,8 @@ const updatedByInitials = computed(() => getInitials(props.updatedBy))
       </div>
       <div class="px-6 py-4 flex items-center justify-between">
         <p class="text-sm">
-          Last Update
+          Terakhir Diperbarui
         </p>
-        <CnBadge class="text-xs text-primary px-1 py-1 rounded-full bg-red-50 hover:bg-primary/60">
-          <CnAvatar class="mr-1 h-5 w-5">
-            <CnAvatarFallback class="text-[10px] text-primary bg-red-200">
-              {{ updatedByInitials }}
-            </CnAvatarFallback>
-          </CnAvatar>
-          {{ updatedBy }}
-        </CnBadge>
       </div>
       <div class="text-neutral-400 px-6 py-4 bg-muted flex flex-row gap-2 items-center">
         <Icon name="ph:calendar-blank" size="20" />

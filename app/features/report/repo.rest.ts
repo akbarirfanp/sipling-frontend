@@ -1,10 +1,6 @@
 import type { Report, ReportRepository } from './domain'
 import { z } from 'zod'
 import type { Page } from '~/lib/transport'
-import { zDetailEnvelope } from '~/lib/transport/envelope'
-import { safeParseOrThrow } from '~/lib/validations/safe-parse'
-
-
 
 const zReportTransport = z.object({
     id: z.string(),

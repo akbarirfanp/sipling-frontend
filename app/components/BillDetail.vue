@@ -41,7 +41,7 @@ const billQuery = useBillQuery(props.billId)
     <!-- Content -->
     <div v-else-if="billQuery.data.value" class="p-6">
       <h2 class="text-sm text-gray-900 font-semibold mb-4 px-3 py-2 rounded bg-gray-50">
-        ID Tagihan: {{ billQuery.data.value.invoiceNumber || '-' }}
+        Invoice Number: {{ billQuery.data.value.invoiceNumber || '-' }}
       </h2>
 
       <div class="gap-x-6 gap-y-4 grid grid-cols-2">

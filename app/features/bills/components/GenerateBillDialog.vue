@@ -50,10 +50,10 @@ const feeOptions = computed(() => {
 // ✅ SAMA seperti sebelumnya, tidak ada yang diubah di onSubmit
 const onSubmit = handleSubmit(async (values: GenerateBillFormData) => {
   const confirmed = await confirmDialog.confirm({
-    title: 'Generate Bill?',
+    title: 'Generate Tagihan?',
     message: 'Pastikan jenis iuran dan tanggal jatuh tempo sudah benar sebelum generate.',
-    confirmText: 'Confirm',
-    cancelText: 'Cancel',
+    confirmText: 'Ya',
+    cancelText: 'Batal',
     type: 'confirmation',
   })
 
@@ -89,7 +89,7 @@ const onSubmit = handleSubmit(async (values: GenerateBillFormData) => {
       }
     }
     else {
-      const errorMessage = error.message || 'Gagal generate bill. Coba lagi.'
+      const errorMessage = error.message || 'Gagal generate tagihan. Coba lagi.'
       await confirmDialog.error('Error', errorMessage)
     }
 
@@ -177,7 +177,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
             name="ph:spinner"
             class="mr-2 h-4 w-4 animate-spin"
           />
-          {{ (isSubmitting || generateBillMutation.isPending.value) ? 'Generating...' : 'Generate Bill' }}
+          {{ (isSubmitting || generateBillMutation.isPending.value) ? 'Generating...' : 'Generate Tagihan' }}
         </CnButton>
         <CnButton
           type="button"

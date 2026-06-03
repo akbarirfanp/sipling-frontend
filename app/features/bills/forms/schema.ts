@@ -6,10 +6,7 @@ import { z } from 'zod'
 export const generateBillSchema = z.object({
   feeId: z
     .string()
-    .min(1, 'Role name is required')
-    .min(3, 'Role name must be at least 3 characters')
-    .max(100, 'Role name must not exceed 100 characters')
-    .regex(/^[\w\s\-]+$/, 'Role name can only contain letters, numbers, spaces, hyphens, and underscores'),
+    .min(3, 'Jenis iuran harus dipilih'),
   dueDate: z
     .string()
     .min(1, 'Tanggal jatuh tempo harus diisi!')

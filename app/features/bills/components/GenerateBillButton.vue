@@ -57,7 +57,7 @@ async function handleSave(
     const formData = values as { feeId: string, dueDate: string }
 
     const confirmed = await confirmDialog.confirm({
-      title: 'Generate Bill?',
+      title: 'Generate Tagihan?',
       message: 'Pastikan jenis iuran dan tanggal jatuh tempo sudah benar sebelum generate.',
       confirmText: 'Generate',
       cancelText: 'Cancel',
@@ -97,7 +97,7 @@ async function handleSave(
 
     const errorMessage = serverError?.data?.message
       ?? serverError?.message
-      ?? 'Gagal generate bill. Coba lagi.'
+      ?? 'Gagal generate tagihan. Coba lagi.'
     confirmDialog.error('Generate Failed', String(errorMessage))
     return false
   }
@@ -121,15 +121,15 @@ defineExpose({ handleGenerate })
   <div>
     <FormDialog
       ref="dialogRef"
-      title="Generate Bill"
-      description="Pilih jenis iuran dan tanggal jatuh tempo untuk generate bill ke semua user."
-      primary-button-label="Generate Bill"
+      title="Generate Tagihan"
+      description="Pilih jenis iuran dan tanggal jatuh temxpo untuk generate tagihan ke semua user."
+      primary-button-label="Generate Tagihan"
       secondary-button-label="Cancel"
       button-direction="vertical"
       width="w-full max-w-md"
       :validation-schema="validationSchema"
       :initial-values="initialValues"
-      loading-text="Generating bill..."
+      loading-text="Generating tagihan..."
       @form-submit="handleSave"
     >
       <template #fields>

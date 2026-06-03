@@ -15,10 +15,10 @@ const loadingDelete = ref(false)
 async function handleDeleteUser() {
   const confirmed = await confirmDialog.confirm({
     type: 'confirmation',
-    title: 'Delete User?',
-    message: 'Are you sure you want to delete this user?',
-    confirmText: 'Delete',
-    cancelText: 'Cancel',
+    title: 'Hapus Pengguna?',
+    message: 'Apakah anda yakin ingin menghapus pengguna ini?',
+    confirmText: 'Hapus',
+    cancelText: 'Batal',
   })
 
   if (!confirmed)
@@ -30,8 +30,8 @@ async function handleDeleteUser() {
     // tampilkan alert success
     await confirmDialog.confirm({
       type: 'alert',
-      title: 'Success',
-      message: 'User deleted successfully!',
+      title: 'Berhasil',
+      message: 'Pengguna berhasil dihapus!',
       confirmText: 'OK',
     })
 
@@ -40,7 +40,7 @@ async function handleDeleteUser() {
   catch (err) {
     await confirmDialog.confirm({
       type: 'error',
-      title: 'Failed',
+      title: 'Gagal',
       message: err instanceof Error ? err.message : 'Unable to delete user',
       confirmText: 'OK',
     })
@@ -56,7 +56,7 @@ async function handleDeleteUser() {
       @click="handleDeleteUser"
     >
       <Icon name="ph:trash" class="mr-2 h-5 w-5" />
-      Delete User
+      Hapus Pengguna
     </CnButton>
   </div>
 </template>
