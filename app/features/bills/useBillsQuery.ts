@@ -148,9 +148,6 @@ export function useBillsQuery() {
         },
     })
     // Helper functions dengan Vue Query
-    const getBill = (id: string) => {
-        return queryClient.getQueryData(['bills', 'detail', id]) as Bill | undefined
-    }
 
     const generateBill = async (cmd: GenerateBillCmd) => {
         return generateBillMutation.mutateAsync(cmd)

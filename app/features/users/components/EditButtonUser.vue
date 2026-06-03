@@ -2,15 +2,10 @@
 import type { ScxSelectFetchResult } from '#shared/types/select'
 import type { GenericObject } from 'vee-validate'
 import type { z, ZodSchema } from 'zod'
-// import type { Division } from '~/features/divisions/domain'
-// import type { Queue } from '~/features/queues/domain'
 import type { Role } from '~/features/roles/domain'
 import type { User } from '~/features/users/domain'
 import { toTypedSchema } from '@vee-validate/zod'
-import PhoneInput from 'base-vue-phone-input'
-import { useForm } from 'vee-validate'
-import { nextTick, onMounted } from 'vue'
-import FlagComponent from '~/components/forms/FlagComponent.vue'
+import { onMounted } from 'vue'
 import { useRolesQuery } from '~/features/roles/useRolesQuery'
 import { updateUserSchema } from '~/features/users/forms/schemas'
 import { useUsers } from '~/features/users/useUsers'
@@ -22,11 +17,8 @@ const emit = defineEmits(['editSuccess'])
 const { updateUser } = useUsers()
 const confirmDialog = useConfirmDialog()
 const dialogRef = ref()
-const open = reactive<Record<string, boolean>>({ phoneNumber: false })
 
 const rolesQuery = useRolesQuery()
-const { setFieldValue } = useForm()
-const phoneRef = ref()
 
 const {
   roles,
@@ -107,10 +99,10 @@ const initialValues = computed(() => {
 async function handleSave(values: GenericObject, _actions: { resetForm: () => void, setFieldError: (field: string, message: string) => void }) {
   const formData = values as FormData
   const confirmed = await confirmDialog.confirm({
-    title: 'Submit Edit User?',
-    message: 'Before submitting, please ensure the user you entered is correct and appropriate',
-    confirmText: 'Submit',
-    cancelText: 'Cancel',
+    title: 'Simpan Perubahan Data Pengguna?',
+    message: 'Pastikan data yang dimasukkan sudah benar dan sesuai',
+    confirmText: 'Simpan',
+    cancelText: 'Batal',
     type: 'confirmation',
   })
   if (!confirmed) {
@@ -126,14 +118,14 @@ async function handleSave(values: GenericObject, _actions: { resetForm: () => vo
       status: formData.status === '1',
     })
     confirmDialog.success(
-      'Success',
-      'Update user has been successfully saved in the system',
+      'Berhasil',
+      'Data pengguna berhasil diperbarui',
     )
     emit('editSuccess')
     return true
   }
   catch (err) {
-    let errorMessage = 'An error occurred while creating the user.'
+    let errorMessage = 'Terjadi kesalahan saat memperbarui data pengguna.'
 
     if (
       typeof err === 'object'
@@ -149,7 +141,7 @@ async function handleSave(values: GenericObject, _actions: { resetForm: () => vo
           .join('\n')
       }
       else {
-        errorMessage = apiError.message || 'An unknown error occurred.'
+        errorMessage = apiError.message || 'Terjadi kesalahan yang tidak diketahui.'
       }
     }
     else if (
@@ -190,10 +182,10 @@ onMounted(async () => {
   <div>
     <FormDialog
       ref="dialogRef"
-      title="Edit User"
-      description="Edit user by filling register information below."
-      primary-button-label="Save"
-      secondary-button-label="Cancel"
+      title="Edit Pengguna"
+      description="Ubah data dengan mengisi form di bawah ini."
+      primary-button-label="Simpan"
+      secondary-button-label="Batal"
       button-direction="vertical"
       width="w-full max-w-md"
       :validation-schema="validationSchema"
@@ -210,7 +202,7 @@ onMounted(async () => {
               <CnFormControl>
                 <CnInput
                   v-bind="componentField"
-                  placeholder="Enter username"
+                  placeholder="Masukkan username"
                   class="h-11"
                 />
               </CnFormControl>
@@ -220,11 +212,11 @@ onMounted(async () => {
 
           <CnFormField v-slot="{ componentField }" name="name">
             <CnFormItem>
-              <CnFormLabel>Full Name</CnFormLabel>
+              <CnFormLabel>Nama Lengkap</CnFormLabel>
               <CnFormControl>
                 <CnInput
                   v-bind="componentField"
-                  placeholder="Enter full name"
+                  placeholder="Masukkan nama lengkap"
                   class="h-11"
                 />
               </CnFormControl>
@@ -234,11 +226,11 @@ onMounted(async () => {
 
           <CnFormField v-slot="{ componentField }" name="emailAddress">
             <CnFormItem>
-              <CnFormLabel>Email Address</CnFormLabel>
+              <CnFormLabel>Email</CnFormLabel>
               <CnFormControl>
                 <CnInput
                   v-bind="componentField"
-                  placeholder="Enter email address"
+                  placeholder="Masukkan email"
                   class="h-11"
                 />
               </CnFormControl>
@@ -255,7 +247,7 @@ onMounted(async () => {
               <CnFormControl>
                 <CnSelect v-bind="componentField">
                   <CnSelectTrigger class="h-11 w-full" size="default">
-                    <CnSelectValue placeholder="- Select Status -" />
+                    <CnSelectValue placeholder="- Pilih Status -" />
                   </CnSelectTrigger>
                   <CnSelectContent>
                     <CnSelectItem value="1">
@@ -280,7 +272,7 @@ onMounted(async () => {
               <CnFormControl>
                 <ScxSelect
                   v-bind="componentField"
-                  placeholder="- Select Role -"
+                  placeholder="- Pilih Role -"
                   :async="true"
                   :fetcher="fetchRoles"
                   :loading="isLoadingRoles"

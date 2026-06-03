@@ -4,7 +4,6 @@ import type { GenericObject } from 'vee-validate'
 import type { z, ZodSchema } from 'zod'
 import { FormDialog } from '#components'
 import { toTypedSchema } from '@vee-validate/zod'
-import { useForm } from 'vee-validate'
 import { computed, ref } from 'vue'
 
 import Input from '~/components/ui/input/Input.vue'
@@ -52,10 +51,10 @@ async function handleSaveLogic(
 ) {
   const formData = values as FormData
   const confirmed = await confirmDialog.confirm({
-    title: 'Submit Edit Iuran?',
-    message: 'Before submitting, please ensure the fee details you entered are correct and appropriate.',
-    confirmText: 'Submit',
-    cancelText: 'Cancel',
+    title: 'Ubah data iuran?',
+    message: 'Pastikan data iuran yang diubah sudah benar dan sesuai.',
+    confirmText: 'Simpan',
+    cancelText: 'Batal',
     type: 'confirmation',
   })
 
@@ -70,7 +69,7 @@ async function handleSaveLogic(
       description: formData.description?.trim(),
     })
 
-    await confirmDialog.success('Success', 'Iuran has been successfully updated in the system.')
+    await confirmDialog.success('Berhasil', 'Data iuran berhasil diubah.')
     emit('editSuccess')
     return true
   }
@@ -113,7 +112,7 @@ async function handleSaveLogic(
 function handleEdit() {
   dialogRef.value?.openDialog()
 }
-console.log(feeQuery.data.value?.period)
+
 defineExpose({
   handleEdit,
 })
@@ -135,13 +134,13 @@ defineExpose({
       v-else
       ref="dialogRef"
       title="Edit Iuran"
-      description="Update fee details using the form below."
-      primary-button-label="Save"
-      secondary-button-label="Cancel"
+      description="Update data iuran dengan mengisi form di bawah ini."
+      primary-button-label="Simpan"
+      secondary-button-label="Batal"
       button-direction="vertical"
       :validation-schema="validationSchema"
       :initial-values="initialValues"
-      loading-text="Save in progress..."
+      loading-text="Sedang memproses..."
       :on-form-submit="handleSaveLogic"
       max-width="max-w-3xl"
       width="w-3xl"
@@ -173,7 +172,7 @@ defineExpose({
                 <CnFormField v-slot="{ componentField }" name="period">
                   <CnFormItem>
                     <CnFormLabel class="text-sm font-medium">
-                      Period <span class="text-red-500">*</span>
+                      Periode <span class="text-red-500">*</span>
                     </CnFormLabel>
                     <CnFormControl>
                       <CnSelect v-bind="componentField">

@@ -10,7 +10,6 @@ export function useDashboardQuery() {
   }
 
   const repo = $repos.dashboard
-  const queryClient = useQueryClient()
 
   // Dashboard statistic query
   const {

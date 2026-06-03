@@ -73,7 +73,7 @@ function toggleShow() {
         <div class="mb-8 text-center">
           <NuxtImg src="/logo.png" alt="Solutifcx" class="mx-auto w-[200px] object-contain object-left" />
           <h1 class="text-4xl font-semibold my-1">
-            Sign in to your Organization {{ '\n' }}Workspace
+            Sign In
           </h1>
         </div>
 
@@ -104,7 +104,7 @@ function toggleShow() {
                     <CnInput
                       v-model="password"
                       :type="showPassword ? 'text' : 'password'"
-                      placeholder="Enter your password"
+                      placeholder="Masukkan kata sandi"
                       :disabled="isLoading"
                       required
                       class="pr-10 h-11"
@@ -133,7 +133,7 @@ function toggleShow() {
                     />
                   </CnFormControl>
                   <CnFormLabel for="remember" class="text-sm font-normal">
-                    Remember me
+                    Ingat saya
                   </CnFormLabel>
                 </CnFormItem>
               </CnFormField>
@@ -145,7 +145,7 @@ function toggleShow() {
             <CnButton type="submit" class="h-11 w-full" :disabled="isLoading">
               <Icon v-if="isLoading" name="ph:spinner" class="mr-2 h-4 w-4 animate-spin" />
               <Icon v-else name="ph:sign-in" class="mr-2 h-4 w-4" />
-              Sign In
+              Masuk
             </CnButton>
 
             <CnAlert v-if="error" variant="destructive">
@@ -159,12 +159,6 @@ function toggleShow() {
 
           <!-- SSO Divider -->
           <div class="my-6 relative">
-            <div class="flex items-center inset-0 absolute">
-              <span class="border-t w-full" />
-            </div>
-            <div class="text-xs flex uppercase justify-center relative">
-              <span class="text-muted-foreground px-2 bg-white">Or continue with</span>
-            </div>
           </div>
 
           <!-- Genesys SSO Button -->

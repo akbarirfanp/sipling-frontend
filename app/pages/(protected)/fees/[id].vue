@@ -64,21 +64,6 @@ useHead({
           editable
         />
 
-        <CnCard class="mt-6 p-6">
-          <CnTabs default-value="contact" class="gap-6 w-full">
-            <CnTabsList class="h-11 w-auto">
-              <CnTabsTrigger value="contact" class="px-3 cursor-pointer">
-                Contact
-              </CnTabsTrigger>
-              <CnTabsTrigger value="log" class="px-3 cursor-pointer">
-                Log
-              </CnTabsTrigger>
-              <CnTabsTrigger value="attachment" class="px-3 cursor-pointer">
-                Attachments
-              </CnTabsTrigger>
-            </CnTabsList>
-          </CnTabs>
-        </CnCard>
       </div>
       <div>
         <Timestamp

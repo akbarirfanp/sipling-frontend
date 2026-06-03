@@ -36,22 +36,6 @@ const formatCurrency = (val: number) =>
 
 const formatNumber = (val: number) =>
   new Intl.NumberFormat('id-ID').format(val)
-
-const formatRelativeTime = (date: string) => {
-  const now = new Date()
-  const target = new Date(date)
-
-  const diffMs = now.getTime() - target.getTime()
-  const diffMinutes = Math.floor(diffMs / 1000 / 60)
-  const diffHours = Math.floor(diffMinutes / 60)
-  const diffDays = Math.floor(diffHours / 24)
-
-  if (diffMinutes < 1) return 'Baru saja'
-  if (diffMinutes < 60) return `${diffMinutes}m ago`
-  if (diffHours < 24) return `${diffHours}h ago`
-
-  return `${diffDays}d ago`
-}
 </script>
 
 <template>
@@ -59,9 +43,6 @@ const formatRelativeTime = (date: string) => {
     <!-- Header -->
     <div>
       <h1 class="text-xl font-semibold text-gray-900">Overview</h1>
-      <p class="text-sm text-gray-500 mt-0.5">
-        Here's how your business is performing today.
-      </p>
     </div>
 
     <!-- Error State -->

@@ -146,10 +146,6 @@ async function handleFinalSave(payload: { password: string, passwordConfirmation
   await handleSaveLogic(fullPayload)
 }
 
-const open = reactive<Record<string, boolean>>({
-  phoneNumber: false,
-})
-
 const handleCancel = () => router.push('/users')
 </script>
 
@@ -161,10 +157,10 @@ const handleCancel = () => router.push('/users')
       @save="handleFinalSave"
     />
     <FormContainer
-      title="Create New User"
-      primary-button-label="Next"
-      secondary-button-label="Cancel"
-      button-label="Add User"
+      title="Pembuatan Pengguna Baru"
+      primary-button-label="Selanjutnya"
+      secondary-button-label="Batal"
+      button-label="Buat Pengguna"
       button-direction="horizontal"
       :validation-schema="validationSchema"
       :initial-values="initialValues"

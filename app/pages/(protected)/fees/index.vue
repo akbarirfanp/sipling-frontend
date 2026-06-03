@@ -174,7 +174,7 @@ useHead({ title: 'Manajemen Iuran' })
               @click="handleCreateFee"
             >
               <Icon name="ph:plus" class="h-4 w-4" />
-              Create New
+              Buat Iuran
             </CnButton>
           </template>
         </CnDataTable>

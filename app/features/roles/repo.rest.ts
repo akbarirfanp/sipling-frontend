@@ -1,4 +1,4 @@
-import type { CreateRoleCmd, Role, RolesRepository, UpdateRoleCmd } from './domain'
+import type { Role, RolesRepository, UpdateRoleCmd } from './domain'
 import type { Page } from '~/lib/transport'
 
 import { z } from 'zod'
@@ -32,13 +32,6 @@ function toDomainRoleList(t: z.infer<typeof zRoleListTransport>): Role {
     id: t.id,
     name: t.name,
     status: t.status,
-  }
-}
-
-function toCreatePayload(c: CreateRoleCmd) {
-  return {
-    name: c.name,
-    status: c.status,
   }
 }
 

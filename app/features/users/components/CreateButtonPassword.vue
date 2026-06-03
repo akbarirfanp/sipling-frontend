@@ -29,16 +29,16 @@ const localShow = computed({
 })
 
 const dialogTitle = computed(() =>
-  props.title || (props.mode === 'change' ? 'Change Password' : 'Create Password'),
+  props.title || (props.mode === 'change' ? 'Simpan' : 'Simpan'),
 )
 const dialogDescription = computed(() =>
   props.description
   || (props.mode === 'change'
-    ? 'Update your password to keep your account secure.'
-    : 'Set a password for the new user.'),
+    ? 'Ubah password untuk menjaga keamanan akun.'
+    : 'Atur password untuk pengguna baru.'),
 )
 const primaryButtonLabel = computed(() =>
-  props.primaryButtonLabel || (props.mode === 'change' ? 'Save' : 'Finish'),
+  props.primaryButtonLabel || (props.mode === 'change' ? 'Simpan' : 'Selesai'),
 )
 
 const form = reactive({
@@ -85,7 +85,7 @@ async function handleSave() {
       :title="dialogTitle"
       :description="dialogDescription"
       :primary-button-label="primaryButtonLabel"
-      secondary-button-label="Back"
+      secondary-button-label="Batal"
       width="w-full max-w-md"
       :on-save="handleSave"
       :show="localShow"
@@ -96,14 +96,14 @@ async function handleSave() {
       <template #fields>
         <div class="space-y-2">
           <CnLabel for="password">
-            {{ mode === 'change' ? 'New Password' : 'Password' }}
+            {{ mode === 'change' ? 'Password Baru' : 'Password' }}
           </CnLabel>
           <div class="relative">
             <CnInput
               id="password"
               v-model="form.password"
               :type="showPassword ? 'text' : 'password'"
-              :placeholder="mode === 'change' ? 'Enter new password' : 'Enter password'"
+              :placeholder="mode === 'change' ? 'Masukkan password baru' : 'Masukkan password'"
               class="pr-14 h-11"
               :class="{ 'border-red-500': form.password && !passwordRules.every(r => r.valid) }"
             />
@@ -130,14 +130,14 @@ async function handleSave() {
         <!-- Confirm Password -->
         <div class="space-y-2">
           <CnLabel for="passwordConfirmation">
-            {{ mode === 'change' ? 'Confirm New Password' : 'Confirm Password' }}
+            {{ mode === 'change' ? 'Konfirmasi Password Baru' : 'Konfirmasi Password' }}
           </CnLabel>
           <div class="relative">
             <CnInput
               id="passwordConfirmation"
               v-model="form.passwordConfirmation"
               :type="showConfirmPassword ? 'text' : 'password'"
-              :placeholder="mode === 'change' ? 'Confirm new password' : 'Confirm password'"
+              :placeholder="mode === 'change' ? 'Konfirmasi password' : 'Konfirmasi password'"
               class="pr-14 h-11"
               :class="{ 'border-red-500': passwordMismatch }"
             />
@@ -161,13 +161,13 @@ async function handleSave() {
           </div>
 
           <p v-if="passwordMismatch" class="text-sm text-red-500">
-            Passwords do not match
+            Password tidak cocok
           </p>
         </div>
 
         <div class="text-sm mt-4">
           <p class="font-medium">
-            Password must contain:
+            Password harus memenuhi syarat berikut:
           </p>
           <ul class="ml-1 mt-2 space-y-1">
             <li v-for="rule in passwordRules" :key="rule.label" class="flex gap-2 items-center">

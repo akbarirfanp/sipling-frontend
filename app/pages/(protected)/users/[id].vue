@@ -77,7 +77,7 @@ const userData = computed(() => {
   <div>
     <div class="mb-6 flex items-center justify-between">
       <h1 class="text-2xl font-bold">
-        User Detail
+        Detail Pengguna
       </h1>
     </div>
 
@@ -99,18 +99,6 @@ const userData = computed(() => {
           @edit="handleEditUser"
         />
 
-        <CnCard class="p-6">
-          <CnTabs default-value="log" class="gap-6 w-full">
-            <CnTabsList class="h-11 w-auto">
-              <CnTabsTrigger value="log" class="px-3 cursor-pointer">
-                Log
-              </CnTabsTrigger>
-            </CnTabsList>
-            <CnTabsContent value="log" class="mt-6 border rounded-md rounded-md">
-              <LogApplication entity-type="users" :entity-id="userId" />
-            </CnTabsContent>
-          </CnTabs>
-        </CnCard>
       </div>
       <div>
         <Timestamp
@@ -118,16 +106,16 @@ const userData = computed(() => {
           :updated-at="user?.updatedAt"
         />
         <CnButton
-          class="mt-6 py-4 bg-red-600 h-10 w-full hover:bg-red-700"
+          class="mt-6 py-4 bg-primary h-10 w-full hover:bg-primary/80"
           @click="showPassword = true"
         >
-          Change Password
+          Ubah Password
         </CnButton>
         <CreateButtonPassword
           v-model:show="showPassword"
-          title="Change Password"
-          description="Update your password to keep your account secure."
-          primary-button-label="Save"
+          title="Ubah Password"
+          description="Isi form dibawah untuk mengubah password pengguna"
+          primary-button-label="Simpan"
           mode="change"
           @save="handleChangePassword"
         />

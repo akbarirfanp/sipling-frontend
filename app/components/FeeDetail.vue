@@ -31,8 +31,6 @@ const avatarText = computed(() => {
     .join('')
 })
 
-const qc = useQueryClient()
-
 async function handleEditSuccess() {
   await feeQuery.refetch()
   // await qc.refetchQueries({ queryKey: ['log-application'] })

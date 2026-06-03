@@ -164,10 +164,10 @@ function handleGenerateBill() {
     GenerateBillDialog,
     {},
     {
-      title: 'Generate Iuran',
+      title: 'Generate Tagihan',
       size: 'md',
       closable: true,
-      description: 'Untuk generate iuran, isi informasi dibawah ini.',
+      description: 'Untuk generate tagihan, isi informasi dibawah ini.',
     },
   )
 }

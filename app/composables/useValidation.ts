@@ -5,7 +5,7 @@ export function useValidation(form?: Ref<{ password: string, passwordConfirmatio
   const required = (fieldLabel: string) => {
     return (value: string | number | null | undefined): true | string => {
       if (value === null || value === undefined || value === '') {
-        return `${fieldLabel} is required`
+        return `${fieldLabel} wajib diisi`
       }
       return true
     }
@@ -21,15 +21,15 @@ export function useValidation(form?: Ref<{ password: string, passwordConfirmatio
   const phone = (fieldLabel = 'Phone number') => {
     return (value: string): true | string => {
       if (!value)
-        return `${fieldLabel} is required`
+        return `${fieldLabel} wajib diisi`
 
       const phoneOnly = value.replace(/^\+\d{2}/, '')
       if (phoneOnly.length > 15)
-        return 'Phone number cannot exceed 15 digits'
+        return 'Nomor telepon tidak boleh lebih dari 15 digit'
       if (phoneOnly.length < 8)
-        return 'Phone number must be at least 8 digits'
+        return 'Nomor telepon harus minimal 8 digit'
       if (!/^\d+$/.test(phoneOnly))
-        return 'Phone number should only contain digits'
+        return 'Nomor telepon hanya boleh berisi angka'
 
       return true
     }
@@ -41,10 +41,10 @@ export function useValidation(form?: Ref<{ password: string, passwordConfirmatio
     const pwd = form.value.password || ''
 
     return [
-      { label: 'At least 8 character', valid: pwd.length >= 8 },
-      { label: 'Upper and lower case (A-z)', valid: /[A-Z]/.test(pwd) && /[a-z]/.test(pwd) },
-      { label: 'Number (0-9)', valid: /\d/.test(pwd) },
-      { label: 'Special character (#,%,_, etc)', valid: /[^A-Z0-9]/i.test(pwd) },
+      { label: 'Harus memiliki minimal 8 karakter', valid: pwd.length >= 8 },
+      { label: 'Mengandung huruf besar dan kecil (A-z)', valid: /[A-Z]/.test(pwd) && /[a-z]/.test(pwd) },
+      { label: 'Mengandung angka (0-9)', valid: /\d/.test(pwd) },
+      { label: 'Mengandung karakter khusus (#,%,_, dll)', valid: /[^A-Z0-9]/i.test(pwd) },
     ]
   })
 
