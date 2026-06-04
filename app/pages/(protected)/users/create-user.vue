@@ -37,10 +37,10 @@ const showPasswordModal = ref(false)
 async function handleSaveLogic(values: GenericObject) {
   const formData = values as FormDataWithPassword
   const confirmed = await confirmDialog.confirm({
-    title: 'Submit New User?',
-    message: 'Before submitting, please ensure the user you entered is correct and appropriate.',
-    confirmText: 'Submit',
-    cancelText: 'Cancel',
+    title: 'Anda Yakin Ingin Submit Data Ini?',
+    message: 'Pastikan data pengguna yang anda input sudah benar dan sesuai.',
+    confirmText: 'Ya',
+    cancelText: 'Batal',
     type: 'confirmation',
   })
   if (!confirmed)

@@ -19,6 +19,12 @@ export default defineNuxtPlugin(() => {
     },
     onResponseError({ response }) {
       const body = (response as any)?._data as ApiErrorResponse | undefined
+      if (response.status === 401) {
+        const router = useRouter()
+        router.push('auth/login')
+        return
+      }
+
       throw createError({
         statusCode: response.status,
         statusMessage: (response as any)._data?.message || 'Request failed',

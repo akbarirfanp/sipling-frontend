@@ -39,10 +39,10 @@ const onSubmit = handleSubmit(async (values) => {
   const formData = values as FormData
 
   const confirmed = await confirmDialog.confirm({
-    title: 'Submit Data Iuran?',
-    message: 'Pastikan data iuran yang anda input benar dan sesuai',
-    confirmText: 'Confirm',
-    cancelText: 'Cancel',
+    title: 'Anda Yakin Ingin Submit Data Ini?',
+    message: 'Pastikan data iuran yang anda input sudah benar dan sesuai.',
+    confirmText: 'Ya',
+    cancelText: 'Batal',
     type: 'confirmation',
   })
   if (!confirmed)

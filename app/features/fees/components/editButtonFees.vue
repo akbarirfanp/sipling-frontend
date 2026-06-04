@@ -51,9 +51,9 @@ async function handleSaveLogic(
 ) {
   const formData = values as FormData
   const confirmed = await confirmDialog.confirm({
-    title: 'Ubah data iuran?',
-    message: 'Pastikan data iuran yang diubah sudah benar dan sesuai.',
-    confirmText: 'Simpan',
+    title: 'Anda Yakin Ingin Menyimpan Perubahan Ini?',
+    message: 'Pastikan data yang dimasukkan sudah benar dan sesuai.',
+    confirmText: 'Ya',
     cancelText: 'Batal',
     type: 'confirmation',
   })
