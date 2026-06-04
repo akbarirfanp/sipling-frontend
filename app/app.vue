@@ -27,7 +27,4 @@ body,
   padding: 0;
 }
 
-html.dark {
-  color-scheme: dark;
-}
 </style>

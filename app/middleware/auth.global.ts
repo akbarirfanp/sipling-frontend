@@ -33,7 +33,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       await fetch?.()
     }
     catch (error) {
-      // Handle or log error if needed
       console.error('Failed to fetch user session:', error)
     }
   }
