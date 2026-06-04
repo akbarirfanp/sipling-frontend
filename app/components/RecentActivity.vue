@@ -108,7 +108,7 @@ const formatRelativeTime = (date: string) => {
         </div>
 
         <!-- Pagination -->
-        <div class="flex items-center justify-between px-5 py-3 border-t">
+        <!-- <div class="flex items-center justify-between px-5 py-3 border-t">
           <p class="text-sm text-gray-500">Total {{ total }} aktivitas</p>
           <div class="flex gap-2">
             <CnButton variant="outline" size="sm" :disabled="page <= 1" @click="page--">
@@ -118,7 +118,7 @@ const formatRelativeTime = (date: string) => {
               Next
             </CnButton>
           </div>
-        </div>
+        </div> -->
       </div>
     </CnCardContent>
   </CnCard>
