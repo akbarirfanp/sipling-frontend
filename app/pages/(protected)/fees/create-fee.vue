@@ -76,7 +76,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     const result = await createFee(cmd)
 
-    await confirmDialog.success('Berhasil', 'Iuran berhasil dibuat.')
+    await confirmDialog.success('Sukses', 'Iuran berhasil dibuat.')
 
     if (result?.id) {
       router.push(`/fees/${result.id}`)
@@ -162,7 +162,6 @@ const handleCancel = () => dialog.close()
                   <CnSelectContent>
                     <CnSelectItem value="Tahunan">Tahunan</CnSelectItem>
                     <CnSelectItem value="Bulanan">Bulanan</CnSelectItem>
-                    <CnSelectItem value="Mingguan">Mingguan</CnSelectItem>
                   </CnSelectContent>
                 </CnSelect>
               </CnFormControl>

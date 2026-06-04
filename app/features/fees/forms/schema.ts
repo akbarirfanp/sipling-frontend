@@ -10,15 +10,15 @@ export const createFeeSchema = z.object({
     .max(100, 'Nama iuran tidak boleh lebih dari 100 karakter'),
 
   description: z.string()
-    .min(3, 'Deskripsi harus minimal 3 karakter')
-    .optional()
-    .or(z.literal('')),
+    .min(1, 'Deskripsi perlu diisi')
+    .min(3, 'Deskripsi harus minimal 3 karakter'),
 
-  amount: z.coerce.number().optional(),
+  amount: z.coerce.number()
+    .min(5000, 'Nominal minimal Rp 5.000'),
 
-  period: z.enum(['Tahunan', 'Bulanan', 'Mingguan'])
-    .refine(val => ['Tahunan', 'Bulanan', 'Mingguan'].includes(val), {
-      message: 'Periode harus diantara tahunan, bulanan, dan mingguan',
+  period: z.enum(['Tahunan', 'Mingguan'])
+    .refine(val => ['Tahunan', 'Mingguan'].includes(val), {
+      message: 'Periode harus diantara tahunan dan mingguan',
     }),
 })
 
