@@ -37,10 +37,10 @@ async function handleChangePassword(payload: { password: string, passwordConfirm
     // contoh call API ganti password
     const ok = await confirm({
       type: 'confirmation',
-      title: 'Change Password?',
-      message: 'Are you sure you want to change this user\'s password?',
-      confirmText: 'Yes',
-      cancelText: 'Cancel',
+      title: 'Anda Yakin Ingin Mengganti Password?',
+      message: 'Pastikan password yang anda masukkan sudah benar dan sesuai.',
+      confirmText: 'Ya',
+      cancelText: 'Batal',
     })
 
     if (!ok)

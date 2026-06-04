@@ -99,9 +99,9 @@ const initialValues = computed(() => {
 async function handleSave(values: GenericObject, _actions: { resetForm: () => void, setFieldError: (field: string, message: string) => void }) {
   const formData = values as FormData
   const confirmed = await confirmDialog.confirm({
-    title: 'Simpan Perubahan Data Pengguna?',
+    title: 'Anda Yakin Ingin Menyimpan Perubahan Ini?',
     message: 'Pastikan data yang dimasukkan sudah benar dan sesuai',
-    confirmText: 'Simpan',
+    confirmText: 'Ya',
     cancelText: 'Batal',
     type: 'confirmation',
   })
