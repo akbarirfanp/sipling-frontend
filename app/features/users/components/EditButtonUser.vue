@@ -118,7 +118,7 @@ async function handleSave(values: GenericObject, _actions: { resetForm: () => vo
       status: formData.status === '1',
     })
     confirmDialog.success(
-      'Berhasil',
+      'Sukses',
       'Data pengguna berhasil diperbarui',
     )
     emit('editSuccess')

@@ -76,7 +76,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     const result = await createFee(cmd)
 
-    await confirmDialog.success('Success', 'New fee has been successfully saved in the Account system.')
+    await confirmDialog.success('Berhasil', 'Iuran berhasil dibuat.')
 
     if (result?.id) {
       router.push(`/fees/${result.id}`)

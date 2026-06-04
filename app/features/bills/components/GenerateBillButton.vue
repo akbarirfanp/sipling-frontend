@@ -57,10 +57,10 @@ async function handleSave(
     const formData = values as { feeId: string, dueDate: string }
 
     const confirmed = await confirmDialog.confirm({
-      title: 'Generate Tagihan?',
+      title: 'Anda Yakin Ingin Generate Tagihan Ini?',
       message: 'Pastikan jenis iuran dan tanggal jatuh tempo sudah benar sebelum generate.',
-      confirmText: 'Generate',
-      cancelText: 'Cancel',
+      confirmText: 'Ya',
+      cancelText: 'Batal',
       type: 'confirmation',
     })
 
@@ -72,7 +72,7 @@ async function handleSave(
     })
 
     await confirmDialog.success(
-      'Success',
+      'Sukses',
       'Iuran berhasil digenerate ke semua user dalam sistem.',
     )
 
