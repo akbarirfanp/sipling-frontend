@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import FeeDetail from '~/components/FeeDetail.vue'
 import { useFeesQuery } from '~/features/fees/useFeesQuery'
-import DeleteButtonFees from '~/features/fees/components/DeleteButtonFees.vue'
 const route = useRoute()
 const { useFeeQuery } = useFeesQuery()
 const feeId = (route.params as { id: string }).id
@@ -44,9 +43,6 @@ const pageTitle = computed(() => {
   return name ? `Iuran ${name}` : 'Detail Iuran'
 })
 
-useHead({
-  title: computed(() => `${pageTitle.value} – Solutif CX`),
-})
 </script>
 
 <template>
@@ -72,10 +68,6 @@ useHead({
           :updated-by="feeData?.updatedByName"
           :updated-at="feeData?.updatedAt"
           :loading="isLoadingFee"
-        />
-        <DeleteButtonFees
-          :fee-id="feeId"
-          :loading="false"
         />
       </div>
     </div>

@@ -68,7 +68,7 @@ const onSubmit = handleSubmit(async (values: GenerateBillFormData) => {
     const result: Bill = await generateBillMutation.mutateAsync(generateBillCmd)
 
     await confirmDialog.success(
-      'Success',
+      'Berhasil',
       'Iuran berhasil digenerate ke semua user dalam sistem.',
     )
 

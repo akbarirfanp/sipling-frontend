@@ -69,7 +69,7 @@ async function handleSaveLogic(
       description: formData.description?.trim(),
     })
 
-    await confirmDialog.success('Berhasil', 'Data iuran berhasil diubah.')
+    await confirmDialog.success('Sukses', 'Data iuran berhasil diubah.')
     emit('editSuccess')
     return true
   }
