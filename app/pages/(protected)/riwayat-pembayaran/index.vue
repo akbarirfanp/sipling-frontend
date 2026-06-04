@@ -237,7 +237,7 @@ useHead({ title: 'SIPLING - Riwayat Pembayaran' })
                 <p class="text-xs text-gray-400 mb-0.5">Invoice</p>
                 <p
                   class="text-sm font-semibold text-blue-600 hover:underline cursor-pointer"
-                  @click="navigateTo(`/bills/${payment.bill?.id}`)"
+                  @click="navigateTo(`/riwayat-pembayaran/${payment.bill?.id}`)"
                 >
                   {{ payment.bill?.invoiceNumber || '-' }}
                 </p>
