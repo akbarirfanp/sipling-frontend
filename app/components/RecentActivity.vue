@@ -38,7 +38,7 @@ const formatRelativeTime = (date: string) => {
     <CnCardContent class="p-0">
       <div class="flex items-center justify-between px-5 py-4 border-b">
         <div>
-          <h2 class="text-lg font-semibold text-gray-900">Recent Activity</h2>
+          <h2 class="text-lg font-semibold text-gray-900">Aktivitas Terbaru</h2>
           <p class="text-sm text-gray-500">Aktivitas pembayaran terbaru warga</p>
         </div>
       </div>
@@ -78,7 +78,7 @@ const formatRelativeTime = (date: string) => {
         >
           <div class="flex items-center gap-4">
             <div class="w-11 h-11 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
@@ -101,7 +101,7 @@ const formatRelativeTime = (date: string) => {
             </div>
           </div>
           <div class="text-right">
-            <p class="text-sm font-semibold text-emerald-600">
+            <p class="text-sm font-semibold text-primary">
               +{{ formatCurrency(activity.grossAmount) }}
             </p>
           </div>

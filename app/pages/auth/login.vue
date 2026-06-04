@@ -9,6 +9,8 @@ definePageMeta({
   auth: false,
 })
 
+useHead({ title: 'SIPLING - Login' })
+
 const { login, pending: isLoading } = useLogin()
 
 // Redirect logic handled by guest.global.ts middleware

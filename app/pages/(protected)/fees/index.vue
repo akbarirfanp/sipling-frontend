@@ -129,7 +129,7 @@ function handleCreateFee() {
   navigateTo('/fees/create-fee')
 }
 
-useHead({ title: 'Manajemen Iuran' })
+useHead({ title: 'SIPLING - Manajemen Iuran' })
 </script>
 
 <template>

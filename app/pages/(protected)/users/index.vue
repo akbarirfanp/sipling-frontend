@@ -153,7 +153,7 @@ function navigateToCreate() {
 
 // Set page title
 useHead({
-  title: 'User Management',
+  title: 'SIPLING - Manajemen Iuran',
 })
 </script>
 

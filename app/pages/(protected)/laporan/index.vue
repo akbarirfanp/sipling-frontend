@@ -1,6 +1,9 @@
-<script>
+<script setup lang="ts">
 import GenerateReport from '~/components/GenerateReport.vue'
 
+useHead({
+  title: 'SIPLING - Laporan Keuangan',
+})
 </script>
 
 <template>

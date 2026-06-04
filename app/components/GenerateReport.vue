@@ -151,12 +151,23 @@ const handleGenerate = async () => {
   </div>
 </body></html>`
 
-  const win = window.open('', '_blank')
-  if (!win) { alert('Pop-up diblokir browser. Mohon izinkan pop-up untuk mengunduh laporan.'); return }
-  win.document.write(html)
-  win.document.close()
-  win.focus()
-  setTimeout(() => win.print(), 500)
+// Ganti dengan ini:
+const iframe = document.createElement('iframe')
+iframe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;border:none;opacity:0;pointer-events:none'
+document.body.appendChild(iframe)
+
+const doc = iframe.contentDocument ?? iframe.contentWindow?.document
+if (!doc) return
+
+doc.open()
+doc.write(html)
+doc.close()
+
+setTimeout(() => {
+  iframe.contentWindow?.focus()
+  iframe.contentWindow?.print()
+  setTimeout(() => document.body.removeChild(iframe), 1000)
+}, 500)
 }
 </script>
 
