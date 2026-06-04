@@ -34,7 +34,7 @@ export default defineNuxtConfig({
         { name: 'description', content: appDescription },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
         { name: 'theme-color', media: '(prefers-color-scheme: light)', content: 'white' },
-        { name: 'theme-color', media: '(prefers-color-scheme: dark)', content: '#222222' },
+        { name: 'color-scheme', content: 'light only' }
       ],
       script: [
         {
@@ -50,6 +50,8 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
+    preference: 'light',
+    fallback: 'light',
   },
 
   runtimeConfig: {
