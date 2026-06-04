@@ -123,26 +123,7 @@ function toggleShow() {
               </CnFormItem>
             </CnFormField>
 
-            <div class="flex items-center justify-between">
-              <CnFormField name="rememberMe">
-                <CnFormItem class="flex gap-2 items-center space-x-2">
-                  <CnFormControl>
-                    <CnCheckbox
-                      id="remember"
-                      v-model="rememberMe"
-                    />
-                  </CnFormControl>
-                  <CnFormLabel for="remember" class="text-sm font-normal">
-                    Ingat saya
-                  </CnFormLabel>
-                </CnFormItem>
-              </CnFormField>
-              <!-- <a href="#" class="text-sm text-blue-600 hover:text-blue-700">
-                Forgot password?
-              </a> -->
-            </div>
-
-            <CnButton type="submit" class="h-11 w-full" :disabled="isLoading">
+            <CnButton type="submit" class="h-11 w-full mt-6" :disabled="isLoading">
               <Icon v-if="isLoading" name="ph:spinner" class="mr-2 h-4 w-4 animate-spin" />
               <Icon v-else name="ph:sign-in" class="mr-2 h-4 w-4" />
               Masuk
@@ -156,12 +137,6 @@ function toggleShow() {
               </CnAlertDescription>
             </CnAlert>
           </form>
-
-          <!-- SSO Divider -->
-          <div class="my-6 relative">
-          </div>
-
-          <!-- Genesys SSO Button -->
         </div>
       </CnCardContent>
     </CnCard>
