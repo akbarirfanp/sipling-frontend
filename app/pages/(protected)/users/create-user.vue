@@ -54,7 +54,7 @@ async function handleSaveLogic(values: GenericObject) {
       password: formData.password,
       status: formData.status === '1',
     })
-    await confirmDialog.success('Success', 'New user has been successfully saved in the system.')
+    await confirmDialog.success('Sukses', 'Pengguna berhasil ditambahkan.')
     emit('createSuccess')
     if (confirmed && result?.id) {
       router.push(`/users/${result.id}`)
@@ -185,9 +185,9 @@ const handleCancel = () => router.push('/users')
           <!-- Full Name -->
           <CnFormField v-slot="{ componentField }" name="name">
             <CnFormItem class="flex flex-col">
-              <CnFormLabel>Full Name <span class="text-red-500">*</span></CnFormLabel>
+              <CnFormLabel>Nama Lengkap <span class="text-red-500">*</span></CnFormLabel>
               <CnFormControl>
-                <CnInput v-bind="componentField" placeholder="Enter full name" class="h-11 w-full" />
+                <CnInput v-bind="componentField" placeholder="Masukkan nama lengkap" class="h-11 w-full" />
               </CnFormControl>
               <CnFormMessage class="text-sm text-red-500 min-h-[20px]" />
             </CnFormItem>
@@ -199,9 +199,9 @@ const handleCancel = () => router.push('/users')
           <!-- Email - CHANGED: email_address -> emailAddress -->
           <CnFormField v-slot="{ componentField }" name="emailAddress">
             <CnFormItem class="flex flex-col">
-              <CnFormLabel>Email Address <span class="text-red-500">*</span></CnFormLabel>
+              <CnFormLabel>Email <span class="text-red-500">*</span></CnFormLabel>
               <CnFormControl>
-                <CnInput v-bind="componentField" placeholder="Enter email address" class="h-11 w-full" />
+                <CnInput v-bind="componentField" placeholder="Masukkan email" class="h-11 w-full" />
               </CnFormControl>
               <CnFormMessage class="text-sm text-red-500 min-h-[20px]" />
             </CnFormItem>
@@ -213,7 +213,7 @@ const handleCancel = () => router.push('/users')
               <CnFormControl>
                 <ScxSelect
                   v-bind="componentField"
-                  placeholder="- Select Role -"
+                  placeholder="- Pilih Role -"
                   :async="true"
                   :fetcher="fetchRoles"
                   searchable
@@ -235,7 +235,7 @@ const handleCancel = () => router.push('/users')
               <CnFormControl>
                 <CnSelect v-bind="componentField">
                   <CnSelectTrigger class="h-11 w-full" size="default">
-                    <CnSelectValue placeholder="- Select Status -" />
+                    <CnSelectValue placeholder="- Pilih Status -" />
                   </CnSelectTrigger>
                   <CnSelectContent>
                     <CnSelectItem value="1">

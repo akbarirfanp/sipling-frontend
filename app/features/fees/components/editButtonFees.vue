@@ -213,10 +213,10 @@ defineExpose({
                 <CnFormField v-slot="{ componentField }" name="description">
                   <CnFormItem>
                     <CnFormLabel class="text-sm font-medium">
-                      Description <span class="text-red-500">*</span>
+                      Deskripsi <span class="text-red-500">*</span>
                     </CnFormLabel>
                     <CnFormControl>
-                      <Input v-bind="componentField" placeholder="Description" class="mt-1 h-11" />
+                      <Input v-bind="componentField" placeholder="Deskripsi" class="mt-1 h-11" />
                     </CnFormControl>
                     <CnFormMessage class="text-xs" />
                   </CnFormItem>
