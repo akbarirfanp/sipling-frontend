@@ -55,7 +55,6 @@ const filteredNav = computed(() => {
 <template>
   <CnSidebar v-bind="$props">
     <CnSidebarHeader class="border-b h-16 transition-all duration-200 relative">
-      <NuxtImg src="/logo.webp" alt="Solutifcx" class="h-full w-full object-contain object-left" />
       <CnSidebarTrigger
         v-if="!isMobile"
         class="rounded-xs bg-gray-100 grid h-6 w-6 cursor-pointer translate-x-1/2 transition right-0 top-1/2 place-items-center absolute z-50 dark:bg-gray-800 hover:bg-gray-100 -translate-y-1/2 dark:hover:bg-gray-600"

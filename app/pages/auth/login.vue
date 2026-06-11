@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { z } from 'zod'
+import { z } from 'zod' 
 import { useLogin } from '@/features/auth/app/useLogin'
 
 definePageMeta({
@@ -73,9 +73,8 @@ function toggleShow() {
     <CnCard class="border-0 max-w-xl w-full shadow-none">
       <CnCardContent class="p-8">
         <div class="mb-8 text-center">
-          <NuxtImg src="/logo.png" alt="Solutifcx" class="mx-auto w-[200px] object-contain object-left" />
           <h1 class="text-4xl font-semibold my-1">
-            Sign In
+            SIPLING - Login
           </h1>
         </div>
 
