@@ -34,7 +34,6 @@ const data = {
       title: 'Laporan',
       url: '/laporan',
       icon: 'ph:clipboard-text-duotone',
-      adminOnly: true,
     },
     {
       title: 'Riwayat Pembayaran',
