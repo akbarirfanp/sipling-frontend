@@ -192,7 +192,7 @@ const handleCancel = () => dialog.close()
         <div class="gap-6 mt-6 grid grid-cols-1 md:grid-cols-1">
           <CnFormField v-slot="{ componentField }" name="description">
             <CnFormItem class="flex flex-col">
-              <CnFormLabel>Deskripsi</CnFormLabel>
+              <CnFormLabel>Deskripsi<span class="text-red-500">*</span></CnFormLabel>
               <CnFormControl>
                 <CnInput v-bind="componentField" placeholder="Masukkan deskripsi" class="h-11 w-full" />
               </CnFormControl>
