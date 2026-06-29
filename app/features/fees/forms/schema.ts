@@ -16,9 +16,9 @@ export const createFeeSchema = z.object({
   amount: z.coerce.number()
     .min(5000, 'Nominal minimal Rp 5.000'),
 
-  period: z.enum(['Tahunan', 'Mingguan'])
-    .refine(val => ['Tahunan', 'Mingguan'].includes(val), {
-      message: 'Periode harus diantara tahunan dan mingguan',
+  period: z.enum(['Tahunan', 'Bulanan'])
+    .refine(val => ['Tahunan', 'Bulanan'].includes(val), {
+      message: 'Periode harus diantara tahunan dan bulanan',
     }),
 })
 
