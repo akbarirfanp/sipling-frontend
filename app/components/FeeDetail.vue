@@ -80,9 +80,6 @@ async function handleEditSuccess() {
       <!-- Header -->
       <div class="mb-6 flex items-start justify-between">
         <div class="flex gap-3 items-center">
-          <div class="text-base text-white font-medium rounded-full bg-red-500 flex size-12 items-center justify-center">
-            {{ avatarText }}
-          </div>
 
           <div>
             <h1 class="text-base text-gray-900 font-semibold mb-1">
